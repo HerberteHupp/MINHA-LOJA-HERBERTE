@@ -1,241 +1,231 @@
-//importando o css da barra de navegação
-import styles from './BarraNavegacao.module.css';
+// Importando o css da barra de navegação
+import styles from "./BarraNavegacao.module.css";
 
-import { Nav, Navbar, NavDropdown, Image, Accordion } from 'react-bootstrap';
-
+// Importar os componentes do bootstrap
+import { Nav, Navbar, NavDropdown, Image, Accordion } from "react-bootstrap";
 
 // Importando os links do router
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
-
-
-import { AuthContext } from '../../contexts/UserContext.jsx'
+// Importar as informações do contexto autenticação de usuário
+import { AuthContext } from "../../contexts/UserContext.jsx";
 import { useContext } from "react";
 
+// Importanto os icones
+import {
+  BsBoxes,
+  BsBuilding,
+  BsBuildingAdd,
+  BsBuildingGear,
+  BsHouse,
+  BsPeople,
+  BsPersonAdd,
+  BsPersonGear,
+  BsPlusCircle,
+  BsShop,
+  BsSpeedometer,
+  BsTable,
+  BsViewStacked,
+} from "react-icons/bs";
 
+const BarraNavegacao = () => {
+  // importar o nome de usuario logado e funcao logout
+  const { usuarioNome, logout } = useContext(AuthContext);
 
-//importando os icones
-import { BsBoxes } from 'react-icons/bs'
-
-const BarraNevegaçao = () => {
-
-  // importando o nome de usuário logado e  função de logout
-  const { usuarioNome, logout } = useContext(AuthContext)
-
-  // Guarda o id usuário atual
+  // Guarda o id do usuário atual
   const idAtual = localStorage.getItem("id");
 
-  // Guarda imagem do usuário atual//
+  // Guarda a imagem do usuário atual
   const imagemAtual = localStorage.getItem("imagemPerfil");
 
-  //Imagem padrão//
-  const semImagem = "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-High-Quality-Image.png";
-
-
+  // Imagem padrão
+  const semImagem = "https://cdn-icons-png.flaticon.com/512/17/17004.png";
+  
   return (
-    <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark min-vh-100 max-vh-100"
-      style={{ width: "250px" }} >
-      {/* Logo da barra de navegação */}
-
+    <div
+      className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark min-vh-100 max-vh-100"
+      style={{ width: "300px" }}
+    >
+      {/* Logo da empresa */}
       <Navbar.Brand as={NavLink} to="/home" className="text-white mb-3">
-        <BsBoxes className="fs-4" />
-
+        <BsShop className="fs-1" />
+        <span className="fs-2 ms-2" >C&G Solutions</span>
       </Navbar.Brand>
-      <span className="fs-5 ms-2"> C&G Solutions</span>
 
-      {/* Opções de Menu */}
+      {/* Opções de menu */}
       <Nav className="flex-column mb-auto">
-
-
-        {/* Opções home*/}
+        {/* Opção home */}
         <Nav.Link as={NavLink} to="/home" className="text-white px-2">
-          <BsBoxes className="fs-4" />
+          <BsHouse className="fs-4" />
           <span className="fs-5 ms-2">Home</span>
+        </Nav.Link>    
 
-        </Nav.Link>
-
-        {/* Opções de Relatórios*/}
-        <Nav.Link as={NavLink} to="/relatorios" className="text-white px-2">
-          <BsBoxes className="fs-4" />
-          <span className="fs-5 ms-2">Relatórios</span>
-
-        </Nav.Link>
-
-        {/*Criando Arcodeon*/}
-        <Accordion  flush className='flex- column mb-auto' alwaysOpen>
-
-          {/* Páginas de Produtos*/}
-          <Accordion.Item eventKey='0' className="bg-dark text-white">
+        {/* Criando o arcordeon */}
+        <Accordion flush className="flex-column mb-auto" alwaysOpen>
+          {/* Páginas produtos */}
+          <Accordion.Item eventKey="0" className="bg-dark text-white">
             <Accordion.Header className={styles.accordionHeader}>
               <BsBoxes className="fs-4" />
-              <span className="ms-2"> Produtos </span>
-
+              <span className="ms-2 fs-5 fs-5"> Produtos </span>
             </Accordion.Header>
             <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
               <Nav className="flex-column">
                 {/* Opção 1 */}
-                <Nav.Link as={Nav.Link} to="/produtos" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Listar </span>
-
+                <Nav.Link
+                  as={NavLink}
+                  to="/produtos"
+                  className="text-white ps-4"
+                >
+                  <BsViewStacked className="fs-5" />
+                  <span className="ms-2 fs-5 fs-5"> Listar </span>
                 </Nav.Link>
                 {/* Opção 2 */}
-
-                <Nav.Link as={Nav.Link} to="/produtos/cadastrar" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Adicionar </span>
+                <Nav.Link
+                  as={NavLink}
+                  to="/produtos/cadastrar"
+                  className="text-white ps-4"
+                >
+                  <BsPlusCircle className="fs-5" />
+                  <span className="ms-2 fs-5 fs-5"> Adicionar </span>
                 </Nav.Link>
               </Nav>
             </Accordion.Body>
           </Accordion.Item>
+          {/* fim produtos */}
 
-          {/*Criando Arcodeon*/}
-
-          {/* Páginas de Clientes*/}
-          <Accordion.Item eventKey='1' className="bg-dark text-white">
+          {/* Páginas cliente */}
+          <Accordion.Item eventKey="1" className="bg-dark text-white" >
             <Accordion.Header className={styles.accordionHeader}>
-              <BsBoxes className="fs-4" />
-              <span className="ms-2"> Clientes </span>
-
+              <BsPeople className="fs-4" />
+              <span className="ms-2 fs-5 fs-5"> Clientes </span>
             </Accordion.Header>
             <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
               <Nav className="flex-column">
                 {/* Opção 1 */}
-                <Nav.Link as={Nav.Link} to="/produtos" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Listar </span>
-
+                <Nav.Link
+                  as={NavLink}
+                  to="/clientes"
+                  className="text-white ps-4"
+                >
+                  <BsPersonGear className="fs-5" />
+                  <span className="ms-2 fs-5"> Listar </span>
                 </Nav.Link>
                 {/* Opção 2 */}
-
-                <Nav.Link as={Nav.Link} to="/Clientes/cadastrar" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Adicionar </span>
+                <Nav.Link
+                  as={NavLink}
+                  to="/clientes/cadastrar"
+                  className="text-white ps-4"
+                >
+                  <BsPersonAdd className="fs-5" />
+                  <span className="ms-2 fs-5"> Adicionar </span>
                 </Nav.Link>
               </Nav>
             </Accordion.Body>
           </Accordion.Item>
+          {/* fim cliente */}
 
-          {/*Criando Arcodeon*/}
-
-          {/* Páginas de Funcinários*/}
-          <Accordion.Item eventKey='2' className="bg-dark text-white">
+          {/* Páginas funcionarios */}
+          <Accordion.Item eventKey="2" className="bg-dark text-white">
             <Accordion.Header className={styles.accordionHeader}>
-              <BsBoxes className="fs-4" />
-              <span className="ms-2"> Funcionários </span>
-
+              <BsBuilding className="fs-4" />
+              <span className="ms-2 fs-5"> Funcionários </span>
             </Accordion.Header>
             <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
               <Nav className="flex-column">
                 {/* Opção 1 */}
-                <Nav.Link as={Nav.Link} to="/produtos" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Listar </span>
-
+                <Nav.Link
+                  as={NavLink}
+                  to="/funcionarios"
+                  className="text-white ps-4"
+                >
+                  <BsBuildingAdd className="fs-5" />
+                  <span className="ms-2 fs-5"> Listar </span>
                 </Nav.Link>
                 {/* Opção 2 */}
-
-                <Nav.Link as={Nav.Link} to="/Funcionarios/cadastrar" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Adicionar </span>
+                <Nav.Link
+                  as={NavLink}
+                  to="/funcionarios/cadastrar"
+                  className="text-white ps-4"
+                >
+                  <BsBuildingAdd className="fs-5" />
+                  <span className="ms-2 fs-5"> Adicionar </span>
                 </Nav.Link>
               </Nav>
             </Accordion.Body>
           </Accordion.Item>
+          {/* fim funcionarios */}
 
-          {/*Criando Arcodeon*/}
-
-
-
-
-          {/*Criando Arcodeon*/}
-
-          {/* Páginas de Pedidos*/}
-          <Accordion.Item eventKey='3' className="bg-dark text-white">
+          
+          {/* Páginas Pedidos */}
+          <Accordion.Item eventKey="3" className="bg-dark text-white">
             <Accordion.Header className={styles.accordionHeader}>
-              <BsBoxes className="fs-4" />
-              <span className="ms-2"> Pedidos </span>
-
+              <BsTable className="fs-4" />
+              <span className="ms-2 fs-5"> Pedidos </span>
             </Accordion.Header>
             <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
               <Nav className="flex-column">
                 {/* Opção 1 */}
-                <Nav.Link as={Nav.Link} to="/pedidos" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Listar </span>
-
+                <Nav.Link
+                  as={NavLink}
+                  to="/pedidos"
+                  className="text-white ps-4"
+                >
+                  <BsTable className="fs-5" />
+                  <span className="ms-2 fs-5"> Listar </span>
                 </Nav.Link>
                 {/* Opção 2 */}
-
-                <Nav.Link as={Nav.Link} to="/Pedidos/cadastrar" className="text-white ps-2">
-
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2"> Adicionar </span>
+                <Nav.Link
+                  as={NavLink}
+                  to="/pedidos/cadastrar"
+                  className="text-white ps-4"
+                >
+                  <BsTable className="fs-5" />
+                  <span className="ms-2 fs-5"> Adicionar </span>
                 </Nav.Link>
               </Nav>
             </Accordion.Body>
           </Accordion.Item>
-
-          {/*Criando Arcodeon*/}
-
-
-
+          {/* fim funcionarios */}
         </Accordion>
 
-
-
-
-
-
-
-
+         {/* Opção Relatórios */}
+        <Nav.Link as={NavLink} to="/relatorios" className="text-white px-2">
+          <BsSpeedometer className="fs-4" />
+          <span className="fs-5 ms-2 fs-5">Relatórios</span>
+        </Nav.Link>
       </Nav>
 
-      <hr className="border-secondary" />
+      <hr className=" border-secondary"/>
 
-
-      {/* Visualizar foto e nome perfil, e opções */}
+      {/* Visualizar foto e nome do perfil, e opções */}
       <Nav className=" dropdown pb-4">
         <NavDropdown
           title={
-            <span className="text-white aling-items-center">
-              <Image
+            <span className="text-white align-items-center">
+              <Image 
                 src={imagemAtual == "null" ? semImagem : imagemAtual}
-                width={50}
-                height={50}
+                width={66}
+                height={66}
                 roundedCircle
                 className="me-2"
               />
               {usuarioNome}
-            </span>
+            </span> 
           }
           menuVariant="dark">
-          {/* Opção de editar o perfil  */}
+          {/* Opção de editar o perfil */}
           <NavDropdown.Item as={NavLink} to={`/funcionarios/editar/${idAtual}`}>
             Editar
           </NavDropdown.Item>
 
-          {/*Voltar para a tela de login  */}
+          {/* Voltar pra tela de login */}
           <NavDropdown.Item as={NavLink} to="/login" onClick={logout}>
             Sair
           </NavDropdown.Item>
         </NavDropdown>
-
       </Nav>
-
-
     </div>
+  );
+};
 
-  )
-
-}
-
-
-export default BarraNevegaçao
+export default BarraNavegacao;
